@@ -1,0 +1,379 @@
+extends layout
+
+block content
+  div.reveal
+    div.slides
+      section
+        h1 ES6 Harmony
+      section
+        h2 Myself
+        img(src="/images/profile.jpg", alt="profile picture")
+        div
+          h4 Ramkumar R ( @r4mkum4r )
+          small JS Enthusiast &#38; Consultant
+          blockquote
+            | Smokes And Shadows
+      section
+        h2 Agenda
+        ul
+          li ECMA??
+          li Blocks are not scopes
+          li Symbols
+          li Arrow functions
+          li Rest parameters and defaults
+          li Mehthod Definitions
+          li Classes
+          li Generators
+          li Destructuring
+          li ECMAScript 6 Tools
+          li Q &amp; A
+      section
+        section
+          h2 ECMAScript
+          ul
+            li ECMAScript is the standardized language
+            li Versioning
+              ul
+               li 3 - 1999
+               li 5 - 2009
+               li 6 - 2015
+               li >6 - who cares ??
+        section
+          h2 Why bother ?
+          ul
+            li ECMAScript is the foundation of JavaScript
+            li JS versioning to ECMAScript
+            ul
+              li JS 1.1 => ECMAScript 1
+              li JS 1.5 => ECMAScript 3
+              li JS 2   => ECMAScript 6
+      section
+        section
+          h2 Blocking
+          h4 The scope of a var declared in a JS function is the whole body of that function.
+          pre
+            code(data-trim).
+              // Problem
+              for (var i = 0; i < 5; i++) {
+                setTimeout(function () {
+                  console.log(i);
+                }, i * 1000);
+              }
+              console.log(i);
+
+              // Solution
+
+              for (let i = 0; i < 5; i++) {
+                setTimeout(function () {
+                  console.log(i);
+                }, i * 1000);
+              }
+
+              console.log(i); // Error
+
+        section
+          h2 let
+          ul
+            li let variables are block-scoped.
+            li Global let variables are not properties on the global object.
+            li Loops of the form for (let x...) create a fresh binding for x in each iteration.
+            li let doesn't go well with Hoisting.
+            li No Overrides
+
+        section
+          h2 const
+
+
+
+          pre
+            code(data-trim).
+              const MY_CONSTANT = 3000; // 🙀
+
+              MY_CONSTANT = 'abcd'; // SyntaxError
+              MY_CONSTANT++;     // nice try, but still a SyntaxError
+      section
+        section
+          h2 Symbols
+          h3 New Data Type in town !
+        section
+          h2 The seventh type
+          pre
+            code(data-trim).
+              > typeof Symbol()
+              > "symbol"
+        section
+          h2 Problem
+          pre
+            code(data-trim).
+              // for-in or Object.keys() will list you the keys
+
+              var obj = {
+                my_private_prop : 'blablabla'
+              }
+
+              or
+
+              obj.my_private_prop = 'something very clever string';
+
+              can be accessed via
+
+              obj['clever string']; // And too messy to debug.
+        section
+          h2 Solution
+          pre
+            code(data-trim).
+              var mySymbol = Symbol();
+
+              var obj = {};
+
+              obj([mySymbol]) = 'Your secret dat here';
+
+              or
+
+              var secretKey = new Symbol('keyName');
+
+              obj(secretKey) = 'Your secret value';
+      section
+        section
+          h2 Arrow functions
+          h3 Comments having special cases too.
+          pre
+            code(data-trim).
+              function logMe(n) {
+                while (n --> 0)  // "n goes to zero"
+                  console.log(n);
+              }
+
+              logMe(10) // will result in consoling the number from 10...0
+
+        section
+          h2 Function Function expressions everywhere
+          pre
+            code(data-trim).
+              // ES5
+              var sum = array.reduce(function (a, b) {
+                return a + b;
+              }, 0);
+
+              // ES6
+              var sum = array.reduce((a, b) => a + b, 0);
+
+              $("#elem").click(event => {
+                event.preventDefaul();
+                //.. more code
+              });
+
+        section
+          h2 What happens to this ?
+          h3 Arrow functions do not have their own this value
+          pre
+            code(data-trim).
+              // ES5
+
+              {
+                methodA: function (data) {
+                  var self = this;
+                  _.each(data, function (d) {
+                    self.methodB(d);
+                  });
+                },
+                methodB : function(){}
+              }
+
+              // ES6
+
+              {
+                methodA: function (data) {
+                  _.each(data, d => this.add(d); );
+                },
+                methodB : function(){}
+              }
+      section
+        section
+          h2 Rest parameters and defaults
+          pre
+            code(data-trim).
+              // ES5 Defaults
+              function runApp(appName) {
+                if (typeof appName === 'undefined') appName = 'AUTOEXEC.BAT';
+                console.log('Running', appName);
+              }
+
+              // ES6 Defaults
+              function runApp(appName = 'My App') {
+                console.log('Running', appName);
+              }
+        section
+          h2 Rest...
+          pre
+            code(data-trim).
+              function Fn(a,b, ...rest){
+                console.log(rest); // [3,4,5]
+              }
+
+              Fn(1,2,3,4,5);
+      section
+        h2 Method Definitions
+        pre
+          code(data-trim).
+            var Obj = {
+              prop: 'blue',
+              get name() { return 'Name' },
+              fn1: function() { console.log('Hurry up!'); },
+              fn2: function() { console.log('Screech...! That was close.'); }
+            };
+
+            var obj = {
+              prop: 'blue',
+              get name() { return 'Name' },
+              fn1() { console.log('Hurry up!'); },
+              fn2() { console.log('Screech...! That was close.'); }
+            };
+      section
+        section
+          h2 Classes
+          pre
+            code(data-trim).
+              Circle = function(){
+                console.log('I am the awesome constructor');
+              };
+
+              Circle.prototype = {
+                  area: function area() {
+                      return Math.pow(this.radius, 2) * Math.PI;
+                  }
+              };
+
+              Object.defineProperty(Circle.prototype, "radius", {
+                  get: function() {
+                      return this._radius;
+                  },
+
+                  set: function(radius) {
+                      if (!Number.isInteger(radius))
+                          throw new Error("Circle radius must be an integer.");
+                      this._radius = radius;
+                  }
+              });
+
+        section
+          h2 Using Method Definitions
+          pre
+            code(data-trim).
+              Circle.prototype = {
+                  area() {
+                      return Math.pow(this.radius, 2) * Math.PI;
+                  },
+
+                  get radius() {
+                      return this._radius;
+                  },
+                  set radius(radius) {
+                      if (!Number.isInteger(radius))
+                          throw new Error("Circle radius must be an integer.");
+                      this._radius = radius;
+                  }
+              };
+
+        section
+          h2 Classes
+          pre
+            code(data-trim).
+              class Circle {
+                  constructor(radius) {
+                      this.radius = radius;
+                      Circle.circlesMade++;
+                  };
+
+                  static draw(circle, canvas) {
+                      // Canvas drawing code
+                  };
+
+
+
+                  area() {
+                      return Math.pow(this.radius, 2) * Math.PI;
+                  };
+
+                  get radius() {
+                      return this._radius;
+                  };
+                  set radius(radius) {
+                      if (!Number.isInteger(radius))
+                          throw new Error("Circle radius must be an integer.");
+                      this._radius = radius;
+                  };
+              }
+      section
+        section
+          h2 Generators
+          img(src="/images/generator.png")
+        section
+          h2 In Action.
+          pre
+            code(data-trim).
+              for (var word of someWords()) {
+                alert(word);
+              }
+
+              or
+
+              var fn = someWords();
+
+              fn.next(); // hello
+              fn.next(); // world
+
+              // Internally
+
+              function doThings() {
+                setup();
+                try {
+                  // ... do some things ...
+                } finally {
+                  cleanup();
+                }
+              }
+
+              doThings();
+      section
+        h2 Destructuring
+        p.
+          Destructuring assignment allows you to assign the properties of an array or object to variables using syntax that looks similar to array or object literals.
+        pre
+          code(data-trim).
+            var first = arr[0];
+            var second = arr[1];
+            var third = arr[2];
+
+            var [first, second, third] = arr;
+            console.log(first) // arr[0]
+
+            var [first, ...rest] = [1, 2, 3, 4];
+            console.log(rest); // [2,3,4];
+
+            function returnFn() {
+              return {
+                foo: 1,
+                bar: 2
+              };
+            }
+            var { foo, bar } = returnFn();
+      section
+        section
+          h2 ECMAScript 6 Tools
+          p Babel vs Traceur vs Broccoli
+        section
+          p Demo!
+      section
+        h2 Q &amp; A
+      section
+        h2 Thank You!
+        address.
+          <a>Mob</a>    : +91 9953587718
+          <br>
+          <a>Social</a> : r4mkum4r
+          <br>
+          <a>Email</a>  : r4mkum4r.r@gmail.com
+
+
+

@@ -1,0 +1,72 @@
+html,
+body {
+  height: 100%;
+}
+.flex {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-justify-content: center;
+  -webkit-flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.dir-row {
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+.dir-col {
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+#controller .control {
+  height: 100px;
+  width: 100px;
+}
+#controller .control.overview {
+  width: auto;
+}
+#controller .control .arrow {
+  height: 100%;
+  width: 100%;
+  background: none;
+  border: none;
+  background-image: url("/images/controller.png");
+}
+#controller .control .arrow:focus {
+  box-shadow: none;
+  border: none;
+  outline: none;
+  background-image: url("/images/controller_over.png");
+}
+#controller .control .arrow.up {
+  background-position: 200px -7px;
+}
+#controller .control .arrow.down {
+  background-position: 200px 100px;
+}
+#controller .control .arrow.left {
+  background-position: 0 200px;
+}
+#controller .control .arrow.right {
+  background-position: 100px 200px;
+}
+.button {
+  height: 50px;
+  background: #f50;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+}
+.height100 {
+  height: 100%;
+}
+button {
+  background: none;
+  border: none;
+  outline: none;
+}
+button:focus {
+  outline: none;
+}

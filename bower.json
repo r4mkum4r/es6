@@ -1,0 +1,30 @@
+{
+  "name": "Boilerplate",
+  "version": "0.1.0",
+  "authors": [
+    "r4mkum4r <r4mkum4r.r@gmail.com>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {},
+  "dependencies": {
+    "jquery": "1.10",
+    "bootstrap": "~3.3.5",
+    "angularjs": "~1.4.3",
+    "reveal.js": "~3.1.0",
+    "hammerjs": "~2.0.4",
+    "jquery-hammerjs": "~2.0.0",
+    "lodash": "~3.10.0",
+    "requirejs": "~2.1.20"
+  },
+  "resolutions": {
+    "jquery": ">= 1.9.1"
+  }
+}

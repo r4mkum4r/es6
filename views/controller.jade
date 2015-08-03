@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  div#controller.container.flex.height100
+    div.row
+      div.col-md-12
+        div.control
+          button.arrow(type="button", value="up").up
+    div.row.flex.dir-row
+      div.col-md-6
+        div.control
+          button.arrow(type="button", value="left").left
+      div.col-md-6
+        div.control
+          button.arrow(type="button", value="right").right
+    div.row
+      div.col-md-12
+        div.control
+          button.arrow(type="button", value="down").down
+    div.row
+      div.col-md-12
+        div.control.overview
+          button(type="button", value="overview").button Overview
+
+block includes
+  script(src='/js/controller.js')
