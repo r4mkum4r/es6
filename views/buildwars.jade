@@ -3,7 +3,7 @@ extends layout
 block content
   div.reveal
     div.slides
-      section 
+      section
         h1 Build Wars
       section
         h2 Myself
@@ -18,19 +18,220 @@ block content
         ul
           li Why?
           li Kitchen Sink
+          li Getting Started.
           li Grunt vs Gulp vs Cake vs NPM
-          li Configurations
           li Demo ( Task runner + Bower + Yeoman )
           li Custom Plugins
           li Other tools
+          li Q &amp; A
       section
         section
           h2 Why do we need a Task Runner ?
         section
           h3 Because we are lazy :)
-          h3.fragment Just kidding..
+          h4.fragment Just kidding..
+          ul
+            li
+              h4.fragment “Keep it DRY” or ” Don’t Repeat Yourself”
+            li
+              h4.fragment Build system = series of task exec in order
+            li
+              h4.fragment Javascript tools call themselves task runners
+            li
+              h4.fragment Build system == task runners
+      section
         section
-          
+          h2 Kitchen Sink
+          ul
+            li init
+            li concat
+            li lint
+            li min
+            li qunit
+            li server
+            li test
+            li watch
+            li reload
+      section
+        section
+          h2 Getting Started
+          pre
+            code(data-trim).
+              npm install -g ["favourite-tool"]
+      section
+        section
+          h2 Old Fashioned.
+        section
+          h4 NPM
+          pre
+            code(data-trim).
+              npm run test
+
+              // package.json
+              {
+                "name": "myproject",
+                "devDependencies": {
+                  "jshint": "latest",
+                  "browserify": "latest",
+                  "mocha": "latest"
+                },
+                "scripts": {
+                  "lint": "jshint **.js",
+                  "test": "mocha test/",
+
+                  "pretest" : "Pre-run to test",
+                  "posttest": "Post-run to test"
+                }
+              }
+        section.left
+          h4 Pros
+          ul
+            li Defining tasks for npm is easy
+            li No additional CLI tooling
+            li Can use Bash commands directly
+          p
+            br
+          h4 Cons
+          ul
+            li No Cross-Platform Support == Nightmare.
+            li Less re-usable code
+            li Less Readable
+
+        section
+          h4 Cake
+          pre
+            code(data-trim).
+              npm install -g coffee-script
+              cake build
+
+              // Cakefile
+              exec = require('child_process').exec
+
+              task "build", "Compile coffee files to JS", →
+                  console.log "Compile main file..."
+                  command = "coffee -c main.coffee"
+                  exec command, (err, stdout, stderr) ->
+                      if err
+                          console.log "Error: \n #{err}"
+                          process.exit 1
+                      else
+                          console.log "Compilation succeeded."
+        section.left
+          h4 Pros
+          ul
+            li Cake is shipped with Coffeescript and is not supported without it.
+            li Everything is described through code logic.
+            li It’s good for small operation and doesn’t require any new dependencies
+          p
+            br
+          h4 Cons
+          ul
+            li No Plugin Support
+            li Cake is shipped with Coffeescript and is not supported without it.
+            li You must write every task logic yourself.
+
+        section
+          h2 Modern World.
+        section
+          h4 Grunt
+          pre
+            code(data-trim).
+              npm install -g grunt
+              npm install -deps
+
+              // gruntFile.js
+              module.exports = function(grunt) {
+                grunt.initConfig({
+                  pkg: grunt.file.readJSON('package.json'),
+                  coffee: {
+                    compile: {
+                      files: {
+                        './main.js': './main.coffee' }
+                      }
+                    }
+                  }
+                });
+                grunt.loadNpmTasks('grunt-contrib-coffee');
+                grunt.registerTask('default', ['coffee']);
+              };
+
+        section.left
+          h4 Pros
+          ul
+            li Configurations are easy to write
+            li Huge list of Plugins => 4000+
+            li Task instruction style is though Configs
+            li An API that makes writing and using of plugins extremely easy
+            li A GUI front-end via spock
+          p
+            br
+          h4 Cons
+          ul
+            li Processing method is by File System causing Large bloated configuration files
+            li Grunt compatibility issues
+        section
+          h4 Gulp
+          pre
+            code(data-trim).
+              npm install -g gulp
+
+              // gulpFile.js
+              var gulp = require('gulp');
+              var coffee = require('gulp-coffee');
+
+              gulp.task('scripts', function() {
+                return gulp.src(['./main.coffee'])
+                  .pipe(coffee())
+                  .pipe(gulp.dest('./'));
+              });
+
+              gulp.task('default', ['scripts']);
+        section.left
+          h4 Pros
+          ul
+            li Processing method Pipeline resulting high performance
+            li Allows creating task dependencies
+            li Focuses on code instead of configuration
+            li Large but not as large as Grunt Plugin ecosystem 1000+
+            li Concurrency allows for high-speed perfomance
+          p
+            br
+          h4 Cons
+          ul
+            li Still very young
+      section
+        h2 Demo ( Task runner + Bower + Yeoman )
+      section
+        h2 Custom Plugins
+        p.
+          [only for review purpose]
+          Demonstrating gulp-replace plugin [ https://github.com/r4mkum4r/gulp-replace ]
+      section
+        h2 Other Tools Overview
+        h4 Brunch &amp; Broccoli
+      section
+        h2 Q &amp; A
+      section
+        h2 Thank You!
+        address.
+          <a>Mob</a>    : +91 9953587718
+          <br>
+          <a>Social</a> : r4mkum4r
+          <br>
+          <a>Email</a>  : r4mkum4r.r@gmail.com
 
 
-          
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -4,7 +4,7 @@ Reveal.initialize({
   fragments: true
 });
 
-// Reveal.slide(3);
+// Reveal.slide(4);
 
 moveSlide = function(data) {
   switch (data) {
