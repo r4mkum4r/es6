@@ -14,5 +14,13 @@ router.get('/es6', function(req, res, next) {
   res.render('es6');
 });
 
+router.get('/ng2', function(req, res, next) {
+  res.render('ng2');
+});
+
+router.get('/oojs', function(req, res, next){
+  res.render('oojs');
+});
+
 
 module.exports = router;

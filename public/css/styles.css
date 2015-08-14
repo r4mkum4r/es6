@@ -70,6 +70,20 @@ button {
 button:focus {
   outline: none;
 }
+
  .left{
   text-align: left;
- }
+}
+
+.duration{
+  font-size: 18px !important;
+  color: #f50;
+}
+
+ul.left{
+  width: 100%;
+}
+
+.capitalize{
+  text-transform: uppercase;
+}

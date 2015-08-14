@@ -1,0 +1,279 @@
+extends layout
+
+block content
+  div.reveal
+    div.slides
+      section
+        h1 OOP in JavaScript
+      section
+        h2 Myself
+        img(src="/images/profile.jpg", alt="")
+        div
+          h4 Ramkumar R ( r4mkum4r )
+          small JS Enthusiast &#38; Consultant
+          blockquote
+            | Smokes And Shadows
+      section
+        h2 Agenda
+        ul
+          li OOP ??
+          li Why OOJS ?
+          li OO-style JS
+          li
+      section
+        h2 OOP ??
+        h4 Generally speaking, OOP is a method of organizing and implementing your program in an easily handled and portable manner:
+        img(src="images/lego.jpg")
+      section
+        h2 Why OOJS ?
+        ul
+          li JS isn't about fancy animations and validations
+          li Applications are getting more complex and client-side intensive
+          li Better Code organisation
+          li Code reuse!!
+      section
+        section
+          h3 The most confusing language
+          ul
+            li Not *Really* object-oriented
+            li It has cha
+
+
+
+            racterstics of OO languages
+            li Multiple ways to implement OOP in JS
+        section
+          h2 Approaches to OOJS
+          ul
+            li Object Literals
+            li "Functional" OOJS
+            li Prototypical Inheritance
+            li Frameworks like Backbone, Angular etc...
+        section
+          h2 OO-style JS
+          ul
+            li JavaScript simply has no Class
+            li JavaScript has no access control
+            li Simplicity isn't that Simple
+          p
+            h3 Only JavaScript Ninjas survive!
+        section
+          h2 @constructor
+          pre
+            code(data-trim).
+              // constructor
+
+              function User(name){
+                if ( !(this instanceof User) )
+                  return new User(name);
+                this.name = name;
+              }
+
+              var userA = new User('John'); // An instance.
+              var userB = User('Jane');
+        section
+          h2 @private
+          pre
+            code(data-trim).
+
+              // User Class
+              function User() {
+
+                /**
+                 * @private
+                 * @type {Date}
+                 */
+                this._birthDay = new Date();
+              }
+
+              /**
+               * @return {number} The creation year.
+               */
+              User.prototype.getBirthYear = function() {
+                return this._birthDay.getYear();
+              };
+        section
+          h2 @extend
+          pre
+            code(data-trim).
+              // Class User
+
+              function User() {} // Constructor
+
+              /**
+               * Get the no of users
+               * @return {number} The size.
+               */
+              User.prototype.getUsers = function() {
+                // No implementation.
+              };
+
+              // Class Admin
+
+              function Admin(){}
+
+              /**
+               * Get access permission
+               * @return {Boolean}
+               */
+              Admin.prototype.getAccess = function(){}
+
+              /**
+               * Get Roles
+               * @return {collection} the roles
+               */
+              Admin.prototype.getRoles = function(){}
+
+              //Extending
+              inherits(Admin, User);
+
+              // inherits
+              /**
+               * Helper function that implements (pseudo)Classical inheritance inheritance.
+               * @param {Function/Class} childClass
+               * @param {Function/Class} parentClass
+               */
+              function inherits(childClass, parentClass) {
+                /** @constructor */
+                var tempClass = function() {
+                };
+                tempClass.prototype = parentClass.prototype;
+                childClass.prototype = new tempClass();
+                childClass.prototype.constructor = childClass;
+              }
+        section
+          h2 @interface and @implements
+          pre
+            code(data-trim).
+              // Class User
+
+              function User() {} // Constructor
+
+              /**
+               * Get the no of users
+               * @return {number} The size.
+               */
+              User.prototype.getUsers = function() {
+                // No implementation.
+              };
+
+              // Class Admin
+              /**
+               * @implements User
+
+
+               */
+
+              function Admin(){
+                User.call(this);
+              }
+
+              /**
+               * Get access permission
+               * @return {Boolean}
+               */
+              Admin.prototype.getAccess = function(){}
+
+              /**
+               * Get Roles
+               * @return {collection} the roles
+               */
+              Admin.prototype.getRoles = function(){}
+        section
+          h2 @enum
+          pre
+            code(data-trim).
+              /**
+               * @constructor
+               * @param {User.Status} status
+               */
+              function User(status) {
+                /**
+                 * @type {User.Status}
+                 * @private
+                 */
+                this.status_ = status;
+              }
+
+              /**
+               * @enum {number}
+               */
+              User.Status = {
+                Single: 0,
+                Married: 1,
+                Divorced: 2
+              };
+
+
+              /**
+               * @return {boolean}
+               */
+              User.prototype.isMarried = function() {
+                switch (this.status_) {
+                  case User.Status.Married:
+                    return true;
+                  default:
+                    return false;
+                }
+              };
+
+        section
+          h2 @static
+          pre
+            code(data-trim).
+              // Create namespaces.
+              var demo = {};
+
+              /**
+               * @constructor
+               */
+              demo.example = function() {
+                demo.example.print(this.value1);
+                demo.example.print(this.value2);
+              };
+
+              /**
+               * Static method
+               * @param {string} str String to print.
+               */
+              demo.example.print = function(str) {
+                console.log(str);
+              };
+        section
+          h2 Data Properties [ ES5 ]
+          ul
+            li Data Properties contain a single location for a data value
+            li Data Properties have four main attributes
+            ul
+              li [[ Configurable ]]
+              li [[ Enumerable ]]
+              li [[ Writable ]]
+              li [[ Value ]]
+        section
+          h2 Objects and properties
+          pre
+            code(data-trim).
+
+              myObj.type              = "Dot syntax";
+
+              myObj["date created"]   = "String with space";
+
+              myObj[str]              = "String value";
+
+              myObj[rand]             = "Random Number";
+
+              myObj[obj]              = "Object";
+
+              myObj[""]               = "Even an empty string";
+
+        section
+          h2 Defining Properties
+          pre
+            code(data-trim).
+              Object.defineProperty(obj, 'key', {
+                enumerable: false,
+                configurable: false,
+                writable: false,
+                value: 'static'
+              });
+      section

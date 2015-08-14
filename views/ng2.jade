@@ -1,0 +1,377 @@
+extends layout
+
+block content
+  div.reveal
+    div.slides.container-fluid
+      section
+        h1 Angular 2
+      section
+        h2 Myself
+        img(src="/images/profile.jpg", alt="profile picture")
+        div
+          h4 Ramkumar R ( @r4mkum4r )
+          small JS Enthusiast &#38; Consultant
+          blockquote
+            | Smokes And Shadows
+      section
+        h2 Disclaimer
+        p.
+          Angular 2 is still in developer preview! <br>
+          What we see today maynot be there tomorrow.
+      section
+        h2 Agenda
+        ul
+          li Change is GOOD
+          li Overview
+          li Angular 2 Features
+          li Migration Path
+      section
+        h2 Overview
+        ul
+          li Removed $scope
+          li HTML template syntax
+          li Dirty checking/Object.observe hybrid
+          li Removed Controllers
+          li Removed Directive Definition Object
+          li Removed angular.module
+          li Removed jqLite
+          li Focus on ECMAScript 6
+          li Unified around Web Components
+        p
+          h3 Pretty much everything !!!
+      section
+        h2 Web Standards
+        .row
+          article.col-md-4.fragment
+            h4.label-info Web Components
+            ul
+              li HTML Imports
+              li &lt;template&gt;
+              li Shadow DOM
+
+          article.col-md-4.fragment
+            h4.label-warning ES6+
+            ul
+              li Imports
+              li Classes
+              li Observables
+              li More
+          article.col-md-4.fragment
+            h4.label-danger Framework Specificity
+            ul
+              li
+                strike $scope
+              li
+                strike ng-everything
+              li
+                strike Link, Compile,
+              li
+                strike Controller
+              li
+                strike Factory, Service...
+      section
+        h2 Angular 2
+        p.left
+          h4.left Modular
+          ul.left
+            li Every piece of code is optional &amp; replacable
+            li Mobile first &amp; Offline support.
+        p
+          h4.left Simplicity
+          ul.left
+            li Directives
+            li Templating
+            li IDE can validate &amp; analyze
+        p
+          h4.left Performance
+          ul.left
+            li Prerendering improves load time
+            li Superfast change detection
+      section
+        h2 Approach
+        img(src="/images/ng1-ng2.jpg")
+
+      section
+        h2 ES6 Modules
+        pre
+          code(data-trim).
+
+            // Module
+
+            import {bootstrap, Component, View} from 'angular2/angular2';
+
+
+        p.well.
+          angular.module('app', ['Dependency'])
+
+      section
+        h2 ES6 Classes
+        pre
+          code(data-trim).
+
+            // Class
+
+            Class App{
+
+            }
+
+
+        p.well.capitalize.
+          DIRECTIVE CONTROLLER
+
+      section
+        img(src="/images/memes/classes.png", height=600)
+
+      section
+        h2 @Component
+        p.
+          app.js
+        pre
+          code.
+
+            @Component({
+              selector: 'app’
+            })
+            class App {}
+        p.
+          index.html
+        pre
+          code.
+            &lt;app&gt;&lt;/app&gt;
+        p.well.capitalize.
+          Directive with Template + Controller
+
+      section
+        h2 @View
+        pre
+          code(data-trim).
+
+            @Component({
+              selector: 'app’,
+            })
+            @View({
+              template: '&lt;h1&gt;{{title}}&lt;/h1&gt;' // or:
+              //templateUrl: 'path.html'
+            })
+            class App {}
+
+        p.well.capitalize Directive Template/TemplateUrl
+
+      section
+        h2 @Injection
+        pre
+          code(data-trim).
+
+            import {ServiceA} from 'Services';
+
+            @Component({
+              selector: 'app’,
+              injectables: [ ServiceA ]
+            })
+            @View({
+              template: '&lt;h1&gt;{{title}}&lt;/h1&gt;' // or:
+              //templateUrl: 'path.html'
+            })
+            class App {
+              constructor(service: ServiceA){
+                service.method();
+              }
+            }
+      section
+        h2 Template Syntax
+        h4 #Local Variables
+        pre
+          code(data-trim).
+            &lt;div #localValue&gt;&lt;/div&gt;
+
+        h4 {{ binding }}
+        pre
+          code(data-trim).
+            &lt;div #localValue&gt;&lt;
+              {{bindedValue}}
+            /div&gt;
+        h4 (event)="statement"
+        pre
+          code(data-trim).
+            &lt;div #localValue&gt;&lt;
+              &lt;span (click)="doSomethingAwesome()"&gt;{{bindedValue}}&lt;/span&gt;
+            /div&gt;
+        h4 [property]="expression"
+        pre
+          code(data-trim).
+            &lt;div #localValue&gt;&lt;
+              &lt;span (click)="doSomethingAwesome()" [visible]="expression"&gt;{{bindedValue}}&lt;/span&gt;
+            /div&gt;
+      section
+        h2 ng-* => (event)
+
+        h4 ng-click => (click)
+        h4 ng-dblclick => (dblclick)
+        h4 ng-keydown => (keydown)
+        h4 ng-keyup => (keyup)
+        h4 ng-mouseover => (mouseover)
+        h4 ng-mouseenter => (mouseenter)
+        h4 ng-mouseleave => (mouseleave)
+
+      section
+        h2 ng-* => [property]
+
+        h4 ng-src => [src]
+        h4 ng-href => [href]
+        h4 ng-show => [visible]
+        h4 ng-hide => [hidden]
+        h4 ng-style="color: red" => [style.color]="red"
+        h4 ng-class="name" => [class.name]
+        h4 ng-class={'name': condition} => [class.name]="condition"
+
+      section
+        h2 Directives with Love.
+        dl
+         dt Component Directive
+         dd View and a Controller
+         <br>
+         dt Decorator Directive
+         dd HTML element additional behavior [ng-show] or [visible]
+         <br>
+         dt Template Directive
+         dd Resuable template [ng-if] or *if
+
+      section
+        h2 @ComponentDirective
+        pre
+          code(data-trim).
+            @ComponentDirective({
+                selector:'tab-container',
+                directives:[NgRepeat]
+            })
+            export class TabContainer {
+                constructor(panes:Panes) {
+                    this.panes = panes;
+                }
+
+                select(selectedPane:Pane) { ... }
+            }
+
+      section
+        h2 @DecoratorDirective
+        pre
+          code(data-trim).
+            @DecoratorDirective({
+                selector:'[ng-show]',
+                bind: { 'ngShow': 'ngShow' },
+                observe: {'ngShow': 'ngShowChanged'}
+            })
+            export class NgShow {
+                constructor(element:Element) {
+                    this.element = element;
+                }
+
+                ngShowChanged(newValue){
+                    if(newValue){
+                        this.element.style.display = 'block';
+                    }else{
+                        this.element.style.display = 'none';
+                    }
+                }
+            }
+
+      section
+        h2 @TemplateDirective
+        pre
+          code(data-trim).
+            @TemplateDirective({
+                selector: '[ng-if]',
+                bind: {'ngIf': 'ngIf'},
+                observe: {'ngIf': 'ngIfChanged'}
+            })
+            export class NgIf {
+                constructor(viewFactory:BoundViewFactory, viewPort:ViewPort) {
+                    this.viewFactory = viewFactory;
+                    this.viewPort = viewPort;
+                    this.view = null;
+                }
+
+                ngIfChanged(value) {
+                    if (!value && this.view) {
+                        this.view.remove();
+                        this.view = null;
+                    }
+
+                    if (value) {
+                        this.view = this.viewFactory.createView();
+                        this.view.appendTo(this.viewPort);
+                    }
+                }
+            }
+
+      section
+        h2 The Router
+        h4 A good router should have
+        ul
+          li Simple JSON-based Route Config
+          li Optional Convention over Configuration
+          li Static, Parameterized and Splat Route Patterns
+          li Query String Support
+          li Use Push State or Hashchange
+          li Navigation Model (For Generating a Navigation UI)
+          li Document Title Updates
+          li 404 Route Handling
+          li History Manipulation
+
+        h3 Angular2 has all these :)
+
+      section
+        h2 In Addition.
+        ul
+          li Child Routers
+          li Screen Activation
+          ul
+            li canActivate - Allow/Prevent navigating to the new controller.
+            li activate - Respond to successful navigation to the new controller.
+            li canDeactivate - Allow/Prevent navigation away from the old controller.
+            li deactivate - Respond to successful navigation away from the old controller.
+      section
+        section
+          h2 Migration Plan!
+        section
+          h3 There is no Migration Path !
+          h3.fragment There is <strike> no </strike> Migration Path !
+          ol
+            li.fragment Make Directives, not Controllers
+            li.fragment Clean up your $scopes
+            li.fragment Avoid scope.$parent
+            li.fragment Avoid scope message passing
+
+        section
+          h2 1. Migration Path.
+        section
+          img(src="/images/migration.jpg")
+        section
+          img(src="/images/migration2.png")
+
+        section
+          h2 2. Coding Approach
+          img(src="/images/script_intersections.jpg", height="400")
+
+        section
+          h2 3. Project Management
+        section
+          h2 3.1. Big Bang
+          h4 Rewrite &amp; throw your previous code.
+        section
+          h2 3.2. Incremental
+          img(src="/images/app.jpg")
+      section
+        h2 Love to Explore
+        a(href="https://github.com/angular/angular") https://github.com/angular/angular
+      section
+        h2 Q &amp; A
+      section
+        h2 Thank You!
+        address.
+          <a>Mob</a>    : +91 9953587718
+          <br>
+          <a>Social</a> : r4mkum4r
+          <br>
+          <a>Email</a>  : r4mkum4r.r@gmail.com
+
